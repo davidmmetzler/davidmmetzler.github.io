@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Simply a Test. better than all the rest</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+
+<link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+  .ui-opacity {
+  background:#80C8B5;
+  position:absolute;
+  left:10px;
+  top:70px;
+  height:200px;
+  width:28px;
+  border:1px solid rgba(0,0,0,0.4);
+  border-radius:3px;
+  z-index:1000;
+  }
+.ui-opacity .handle {
+  position:absolute;
+  background:#332F3E;
+  left:0;
+  top:20px;
+  width:30px;
+  height:10px;
+  border-radius:1px;
+  cursor:pointer;
+  cursor:ns-resize;
+  }
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  width:20%;
+  text-align:center;
+  font-size:9px;
+  color:#808080;
+  }
+  .ui-opacity .handle:hover {
+    background:#303030;
+    }
+  .leaflet-control{ 
+ 
+    background:#80C8B5 ;
+    color::#332F3E;
+    font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+    font-weight: bold;
+  }
+
+
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
+<script src="assets/js/osmbuildings/dist/OSMBuildings-Leaflet.js"></script>
+
+</head>
+<body>
+  <script type="text/javascript">
+  function ajax() {/* see page source */}
+function formatJSON(json) {/* see page source */}
+</script>
+<div id='map'></div>
+<div id='control' class='ui-opacity'>
+  <div id='handle' class='handle'></div>
+
+</div>
+
+</body>
+<script src="assets/js/app.js"></script>
+</html>
+

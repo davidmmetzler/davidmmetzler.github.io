@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Simply a Test. better than all the rest</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+  .ui-opacity {
+  background:#FFF;
+  position:absolute;
+  left:10px;
+  top:70px;
+  height:200px;
+  width:28px;
+  border:1px solid rgba(0,0,0,0.4);
+  border-radius:3px;
+  z-index:1000;
+  }
+.ui-opacity .handle {
+  position:absolute;
+  background:#404040;
+  left:0;
+  top:20px;
+  width:26px;
+  height:10px;
+  border-radius:1px;
+  cursor:pointer;
+  cursor:ns-resize;
+  }
+  .ui-opacity .handle:hover {
+    background:#303030;
+    }
+</style>
+</head>
+<body>
+<div id='map'></div>
+<div id='control' class='ui-opacity'>
+  <div id='handle' class='handle'></div>
+</div>
+
+<script src="assets/js/osmbuildings/dist/OSMBuildings-Leaflet.js"></script>
+<script>
+function ajax() {/* see page source */}
+function formatJSON(json) {/* see page source */}
+
+L.mapbox.accessToken = 'pk.eyJ1IjoiZG1ldHpsZXIiLCJhIjoiYzJkNWZkNzc1ZDQ3YTNkYzg3N2JhNGMxMGNhODIzN2YifQ.3j0XirEKNW4jVn7Qt2gbJw';
+// Replace 'mapbox.streets' with your map id.
+var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/dmetzler.vjazia4i/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
+    attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+});
+var MapQuestOpen_Aerial = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/{type}/{z}/{x}/{y}.{ext}', {
+	type: 'sat',
+	ext: 'jpg',
+	attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+	subdomains: '1234'
+});
+var handle = document.getElementById('handle'),
+    start = false,
+    startTop;
+
+var map = L.map('map')
+.addLayer(MapQuestOpen_Aerial)
+    .addLayer(mapboxTiles)
+    .setView([39.7392, -104.99], 16);
+var osmb = new OSMBuildings(map).load();
+osmb.style({ shadows:true });
+var popup;
+osmb.click(function(e) {
+  popup = L.popup()
+  .setLatLng(L.latLng(e.lat, e.lon))
+  .setContent('<b>OSM ID '+ e.feature +'</b>')
+  .openOn(map);
+
+  var url = 'http://data.osmbuildings.org/0.2/rkc8ywdl/feature/'+ e.feature +'.json';
+  ajax(url, function(json) {
+    var content = '<b>OSM ID '+ e.feature +'</b>';
+    for (var i = 0; i < json.features.length; i++) {
+
+      content += '<br>'+ formatJSON(json.features[i].properties.tags);
+    }
+    popup.setContent(content).openOn(map);
+  });
+});
+
+
+document.onmousemove = function(e) {
+    if (!start) return;
+    // Adjust control.
+    handle.style.top = Math.max(-5, Math.min(195, startTop + parseInt(e.clientY, 10) - start)) + 'px';
+    // Adjust opacity.
+    mapboxTiles.setOpacity(1 - (handle.offsetTop / 200));
+};
+
+handle.onmousedown = function(e) {
+    // Record initial positions.
+    start = parseInt(e.clientY, 10);
+    startTop = handle.offsetTop - 5;
+    return false;
+};
+
+document.onmouseup = function(e) {
+    start = null;
+};
+</script>
+//L.control.layers(osmb).addTo(map);
+</script>
+<script type="text/javascript">
+function ajax(url, callback) {
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (req.readyState !== 4) {
+      return;
+    }
+    if (!req.status || req.status < 200 || req.status > 299) {
+      return;
+    }
+
+    callback(JSON.parse(req.responseText));
+  };
+  req.open('GET', url);
+  req.send(null);
+}
+
+function formatJSON(json) {
+  var html = '';
+  for (var key in json) {
+    html += '<em>'+ key +'</em> '+ json[key] +'<br>';
+  }
+  return html;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  L.control.layers({}, { Buildings:osmb, MapQuestOpen_Aerial, mapboxTiles }).setPosition('bottomright').addTo(map);
+
+  var popup;
+  osmb.click(function(e) {
+    popup = L.popup({ maxHeight:200, autoPanPaddingTopLeft:[50,50] })
+      .setLatLng(L.latLng(e.lat, e.lon))
+      .setContent('<b>OSM ID '+ e.feature +'</b>')
+      .openOn(map);
+
+    var url = 'http://data.osmbuildings.org/0.2/rkc8ywdl/feature/'+ e.feature +'.json';
+    ajax(url, function(json) {
+      var content = '<b>OSM ID '+ e.feature +'</b>';
+      for (var i = 0; i < json.features.length; i++) {
+        content += '<br><em>OSM Part ID</em> '+ json.features[i].id;
+        content += '<br>'+ formatJSON(json.features[i].properties.tags);
+      }
+      popup.setContent(content).openOn(map);
+    });
+  });
+});
+</script>
+</body>
+</html>
