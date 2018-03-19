@@ -608,4 +608,12 @@
      "<img src='https://media.giphy.com/media/PH3qYh684NoEU/200w_d.gif'></img>")
     .openOn(map);
 
+
+realtime = L.realtime({
+        url: 'https://wanderdrone.appspot.com/',
+        crossOrigin: true,
+        type: 'json'
+    }, {
+        interval: 3 * 1000
+    }).addTo(map);
         setBounds();
