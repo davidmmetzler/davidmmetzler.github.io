@@ -130,7 +130,7 @@ geojson.addTo(map);
 //var osmb = new OSMBuildings(map).load();
 
 new L.control.layers({}, 
-  {  Imagery:MapQuestOpen_Aerial, Denver1903:mapboxTiles, 'Modern Roads':Acetate_roads, Buildings:geojson },
+  {  Imagery:MapQuestOpen_Aerial, Denver1903:mapboxTiles,  Buildings:geojson },
   {collapsed: false}
    ).setPosition('topright').addTo(map);
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
