@@ -34,7 +34,7 @@ var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/dmetzler.vjazia4i/{z}/{
 var MapQuestOpen_Aerial = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
-var Acetate_roads = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-roads/{z}/{x}/{y}.png', {
+var Acetate_roads = L.tileLayer('http://acetate.geoiq.com/tiles/acetate-roads/{Z}/{X}/{Y}.png', {
   attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
   subdomains: '0123'
 });
