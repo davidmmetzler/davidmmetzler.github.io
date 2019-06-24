@@ -100,7 +100,7 @@ var highlight = L.geoJson(null);
 var boroughs = L.geoJson(null, {
   style: function (feature) {
     return {
-      color: "black",
+      color: "red",
       weight: 1.5,
       fill: false,
       opacity: 1,
@@ -403,8 +403,7 @@ if (document.body.clientWidth <= 767) {
 }
 
 var baseLayers = {
-  "Street Map": mapquestOSM,
-  "Aerial Imagery": mapquestOAM,
+
   "Stamen Map": mapquestHYB
 };
 
@@ -413,8 +412,10 @@ var groupedOverlays = {
     "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Rec Centers": theaterLayer
   },
   "Reference": {
-    "neighborhoods": boroughs
-  }
+    "neighborhoods": boroughs,
+    "Stamen Map": mapquestHYB
+  },
+  
 };
 
 var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {

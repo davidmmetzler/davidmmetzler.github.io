@@ -239,13 +239,14 @@ var baseLayers = {
 };
 
 var groupedOverlays = {
+  "Reference": {
+    "<img src='assets/img/us.png' width='24' height='28'>&nbsp;States": polygon
+  },
   "POI": {
     "<img src='assets/img/modern11.png' width='24' height='28'>&nbsp;Cities and Towns": pointLayer
 
   },
-  "Reference": {
-    "<img src='assets/img/us.png' width='24' height='28'>&nbsp;States": polygon
-  }
+
 };
 
 var layerControl = L.control.groupedLayers(baseLayers, groupedOverlays, {
