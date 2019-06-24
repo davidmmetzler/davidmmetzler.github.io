@@ -24,7 +24,7 @@ $("#about-btn").click(function() {
 
 
 
-L.mapbox.accessToken = 'pk.eyJ1IjoiZG1ldHpsZXIiLCJhIjoiYzJkNWZkNzc1ZDQ3YTNkYzg3N2JhNGMxMGNhODIzN2YifQ.3j0XirEKNW4jVn7Qt2gbJw';
+L.mapbox.accessToken = 'pk.eyJ1IjoiZGF2aWQtbS1tZXR6bGVyIiwiYSI6ImNqd2pkcjJnbTJ4cjgzeWtkNnBtZTFvMDEifQ.hE_04iS3OAZLYZ1gNyCLZw';
 // Replace 'mapbox.streets' with your map id.
 var mapboxTiles = L.tileLayer('https://api.mapbox.com/v4/dmetzler.vjazia4i/{z}/{x}/{y}.png?access_token=' + L.mapbox.accessToken, {
     attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>',
@@ -130,7 +130,7 @@ geojson.addTo(map);
 //var osmb = new OSMBuildings(map).load();
 
 new L.control.layers({}, 
-  {  Imagery:MapQuestOpen_Aerial, Denver1903:mapboxTiles,  Buildings:geojson },
+  {  Imagery:MapQuestOpen_Aerial,  Denver1903:mapboxTiles,  Buildings:geojson },
   {collapsed: false}
    ).setPosition('topright').addTo(map);
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
